@@ -35,12 +35,16 @@ const parseApi = async (url) => {
 
 router.get("/:id", (req, res) => {
   const url = "https://nanime.biz/page/" + req.params.id
-  
+  try{
   parseApi(url)
     .then(nanime => {
       res.send({ api: nanime })
     })
-  
+  }
+  catch(err){
+    console.error(err)
+    res.status(400).json({ error: "something went wrong"})
+  }
 })
 
 module.exports = router
